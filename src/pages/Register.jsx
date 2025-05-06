@@ -7,6 +7,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmarPassword, setConfirmarPassword] = useState("");
+  const [adminCode, setAdminCode] = useState(""); // para admins
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,25 +20,27 @@ const Register = () => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return toast.error("Correo no válido.");
+      return toast.error("Correo Inválido.");
     }
 
     if (password !== confirmarPassword) {
       return toast.error("Las contraseñas no coinciden.");
     }
 
+    const role = adminCode === "SECRETO123" ? "admin" : "cliente";
+
     try {
       const res = await fetch("http://localhost:4000/api/usuarios/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, email, password }),
+        body: JSON.stringify({ nombre, email, password, role }),
       });
 
       const data = await res.json();
 
       if (!res.ok) throw new Error(data.message || "Error al registrar");
 
-      toast.success("Usuario registrado. Iniciá sesión.");
+      toast.success("Registrado correctamente. Iniciá sesión.");
       navigate("/");
     } catch (err) {
       toast.error(err.message);
@@ -81,6 +84,14 @@ const Register = () => {
           value={confirmarPassword}
           onChange={(e) => setConfirmarPassword(e.target.value)}
           className="w-full mb-4 p-2 border rounded"
+        />
+        {/* Campo especial para crear admin */}
+        <input
+          className="w-full mb-4 p-2 border rounded"
+          type="text"
+          placeholder="Código Admin (opcional)"
+          value={adminCode}
+          onChange={(e) => setAdminCode(e.target.value)}
         />
         <button
           type="submit"
