@@ -47,7 +47,7 @@ export default function Login() {
         <p className="text-sm mt-4">
           ¿No tenés cuenta?{" "}
           <Link to="/register" className="text-blue-600 hover:underline">
-            Registrate aquí...
+            Registrate
           </Link>
         </p>
       </form>
