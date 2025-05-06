@@ -1,7 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthProvider";
 import AdminPanel from "./pages/AdminPanel";
 import ClientPanel from "./pages/ClientPanel";
 import Login from "./pages/Login";

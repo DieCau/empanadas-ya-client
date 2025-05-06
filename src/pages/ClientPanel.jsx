@@ -6,9 +6,21 @@ export default function ClientPanel() {
 
   useEffect(() => {
     // Podés hacer fetch de pedidos aquí
-  }, []);
+    if (user) {
+        console.log("Usuario en ClientPanel:", user);
+    }
+  }, [user]); // Dependencia de useEffect en user
 
-  const saludo = useMemo(() => `Bienvenido ${user?.name}`, [user]);
+  const saludo = useMemo(() => {
+      if (user) {
+        return `Bienvenido ${user.name}`;
+      }
+      return "Bienvenido"; // O un valor por defecto
+  }, [user]);
+
+  if (!user) {
+    return <div>Cargando información del usuario...</div>;
+  }
 
   return (
     <div className="p-4">

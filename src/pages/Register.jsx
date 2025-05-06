@@ -64,7 +64,7 @@ const Register = () => {
         />
         <input
           type="email"
-          placeholder="Correo"
+          placeholder="E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full mb-4 p-2 border rounded"
@@ -72,7 +72,7 @@ const Register = () => {
         />
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full mb-4 p-2 border rounded"
@@ -80,7 +80,7 @@ const Register = () => {
         />
         <input
           type="password"
-          placeholder="Confirmar contraseña"
+          placeholder="Confirmar Password"
           value={confirmarPassword}
           onChange={(e) => setConfirmarPassword(e.target.value)}
           className="w-full mb-4 p-2 border rounded"
