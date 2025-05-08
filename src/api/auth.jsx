@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API = 'http://localhost:4000/api/auth';
+const API = "http://localhost:4000/api/auth";
 
 export const loginUser = async (email, password) => {
   try {
@@ -10,7 +10,8 @@ export const loginUser = async (email, password) => {
     });
     return res.data; // { token: "...", user: { ... } }
   } catch (err) {
-    throw new Error("Credenciales incorrectas", err);
+    const message = err.res?.data?.message || "Error al iniciar sesión";
+    throw new Error(message);
   }
 };
 
@@ -23,6 +24,8 @@ export const getUserData = async (token) => {
     });
     return res.data; // { user: { nombre, email, role } }
   } catch (err) {
-    throw new Error("Token inválido o expirado", err);
+    const message =
+    err.response?.data?.message || 'Token inválido o expirado';
+  throw new Error(message);
   }
 };

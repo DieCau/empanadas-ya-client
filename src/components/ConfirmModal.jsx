@@ -1,4 +1,4 @@
-import { Dialog, Transition } from '@headlessui/react';
+import { Description, Dialog, DialogPanel, DialogTitle, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
 export default function ConfirmModal({ isOpen, onClose, onConfirm, mensaje }) {
@@ -20,7 +20,7 @@ export default function ConfirmModal({ isOpen, onClose, onConfirm, mensaje }) {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <DialogPanel className="bg-white p-6 rounded-xl max-w-sm w-full shadow-xl">
             <DialogTitle className="text-lg font-bold mb-2">Confirmar acción</DialogTitle>
-            <DialogDescription className="mb-4">{mensaje}</DialogDescription>
+            <Description className="mb-4">{mensaje}</Description>
 
             <div className="flex justify-end gap-3">
               <button

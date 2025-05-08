@@ -14,6 +14,10 @@ export default function AdminPanel() {
 
   useEffect(() => {
     const fetchPedidos = async () => {
+      if (!user) return; // 🛡️ Protege si user es null
+
+      console.log('user: ', user)
+      
       try {
         const data = await getPedidos(user.token);
         setPedidos(data);
@@ -23,6 +27,7 @@ export default function AdminPanel() {
     };
     fetchPedidos();
   }, [user]);
+  
 
   const pedidosFiltrados = useMemo(() => {
     return pedidos
