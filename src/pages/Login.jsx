@@ -13,7 +13,10 @@ export default function Login() {
     e.preventDefault();
     try {
       const data = await loginUser(email, password);
-      login(data);
+      localStorage.setItem('token', data.token); // guardás el token
+  
+      login(data); // guardás los datos en contexto
+  
       navigate(data.user.role === "admin" ? "/admin" : "/cliente");
     } catch (err) {
       alert("Login incorrecto", err);

@@ -7,6 +7,16 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Agregamos un estado de carga
 
+  const login = ({ token, user }) => {
+    localStorage.setItem("token", token);
+    setUser(user);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     try {
@@ -18,6 +28,7 @@ export const AuthProvider = ({ children }) => {
           })
           .catch(() => {
             localStorage.removeItem("token");
+            setUser(null);
           });
       }
     } catch (error) {
@@ -28,15 +39,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (data) => {
-    localStorage.setItem("token", data.token);
-    setUser(data.user);
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("token");
-  };
 
   // Mientras se carga el usuario, mostramos un indicador de carga
   if (loading) {
