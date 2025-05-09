@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
 
@@ -9,10 +10,8 @@ export default function ClientPanel() {
   const [productos, setProductos] = useState([]);
   const { addToCart } = useContext(CartContext);
   const navigate = useNavigate();
-  
 
   useEffect(() => {
-
     const API = "http://localhost:4000/api/productos";
 
     const getProductos = async () => {
@@ -34,7 +33,7 @@ export default function ClientPanel() {
 
   const handleLogout = () => {
     logout();
-    navigate("/", { replace: true }); 
+    navigate("/", { replace: true });
   };
 
   return (
@@ -59,9 +58,15 @@ export default function ClientPanel() {
 
             <button
               className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              onClick={() => addToCart(producto)}
+              onClick={() => {
+                addToCart(producto);
+                toast.success(`${producto.nombre} agregado al carrito`, {
+                  position: "bottom-right",
+                  autoClose: 2000,
+                });
+              }}
             >
-              Agregar al carrito
+              Agregar al carrito +
             </button>
           </div>
         ))}
