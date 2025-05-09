@@ -1,20 +1,25 @@
-import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { CartContext } from '../context/CartContext';
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 
 export default function ClientPanel() {
   const { user, token } = useContext(AuthContext);
-  const { addToCart } = useContext(CartContext);
   const [productos, setProductos] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    if (token) {
-      axios.get('http://localhost:4000/api/productos', {
-        headers: { Authorization: `Bearer ${token}` }
-      }).then(res => setProductos(res.data));
-    }
+    const API = "http://localhost:4000/api/productos";
+
+    const getProductos = async () => {
+      const res = await axios.get(API, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProductos(res.data);
+    };
+
+    if (token) getProductos();
   }, [token]);
 
   return (
