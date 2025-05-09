@@ -13,7 +13,7 @@ export default function ClientPanel() {
 
   const saludo = useMemo(() => {
       if (user) {
-        return `Bienvenido ${user.name}`;
+        return `Bienvenido ${user.nombre}`;
       }
       return "Bienvenido"; // O un valor por defecto
   }, [user]);

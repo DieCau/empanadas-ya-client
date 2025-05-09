@@ -15,9 +15,7 @@ export default function AdminPanel() {
   useEffect(() => {
     const fetchPedidos = async () => {
       if (!user) return; // 🛡️ Protege si user es null
-
-      console.log('user: ', user)
-      
+     
       try {
         const data = await getPedidos(user.token);
         setPedidos(data);
@@ -73,10 +71,11 @@ export default function AdminPanel() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Gestión de Pedidos</h1>
-      <p>Hola, {user?.name}. Aquí podés gestionar pedidos o usuarios.</p>
+      <h1 className="text-2xl font-bold mb-4">Administración de Pedidos</h1>
+      <p>Hola, {user?.nombre}.</p> 
+      <p>Aquí podés gestionar pedidos o usuarios.</p>
 
-      <div className="flex gap-4 mb-4">
+      <div className="flex gap-4 m-4">
         <select
           className="border p-2"
           value={zona}
