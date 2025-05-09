@@ -5,10 +5,13 @@ import { AuthContext } from "./AuthContext";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Agregamos un estado de carga
+  const [loading, setLoading] = useState(true); 
+  const [token, setToken] = useState(null);
+
 
   const login = ({ token, user }) => {
     localStorage.setItem("token", token);
+    setToken(token); 
     setUser(user);
   };
 
@@ -21,6 +24,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     try {
       if (token) {
+        setToken(token);
         // Llamá al backend para validar y obtener el user
         getUserData(token)
           .then((data) => {
@@ -28,6 +32,7 @@ export const AuthProvider = ({ children }) => {
           })
           .catch(() => {
             localStorage.removeItem("token");
+            setToken(null);
             setUser(null);
           });
       }
@@ -46,7 +51,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
