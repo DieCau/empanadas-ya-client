@@ -29,6 +29,7 @@ const Register = () => {
 
     const role = adminCode === "SECRETO123" ? "admin" : "cliente";
 
+    // agrega el usuario
     try {
       const res = await fetch("http://localhost:4000/api/usuarios/register", {
         method: "POST",
